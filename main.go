@@ -18,12 +18,17 @@ func main() {
 
 		if input == "exit" {
 			os.Exit(0)
+		} else if input == "" {
+			continue
 		}
 
 		cmd := exec.Command(input)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 
-		cmd.Run()
+		err := cmd.Run()
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 }
