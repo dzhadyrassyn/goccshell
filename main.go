@@ -16,13 +16,19 @@ func main() {
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)
 
-		if input == "exit" {
-			os.Exit(0)
-		} else if input == "" {
+		if input == "" {
 			continue
 		}
 
-		cmd := exec.Command(input)
+		parts := strings.Fields(input)
+		var command = parts[0]
+		var args = parts[1:]
+
+		if command == "exit" {
+			os.Exit(0)
+		}
+
+		cmd := exec.Command(command, args...)
 		cmd.Stdout = os.Stdout
 		cmd.Stderr = os.Stderr
 
